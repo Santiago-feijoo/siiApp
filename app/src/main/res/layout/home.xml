@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    tools:context=".consultar_pasajeros">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/vistaOnline"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/fondoConsorcio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/logoc" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/bacterias"
+            tools:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/imagenSii"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fondoConsorcio"
+            app:layout_constraintVertical_bias="0.07999998"
+            app:srcCompat="@drawable/sii2" />
+
+        <TextView
+            android:id="@+id/texto_codigo_af_firmapp"
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
+            android:text="CODIGO DE LA EMPRESA:"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imagenSii" />
+
+        <EditText
+            android:id="@+id/nombreUsuario"
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:background="@color/colorAccent"
+            android:ems="10"
+            android:hint="193XXXX"
+            android:inputType="none|number"
+            android:padding="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/texto_codigo_af_firmapp" />
+
+        <TextView
+            android:id="@+id/codigObligatorio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:enabled="true"
+            android:text="*"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="#D32F2F"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/nombreUsuario"
+            app:layout_constraintEnd_toStartOf="@+id/nombreUsuario"
+            app:layout_constraintTop_toBottomOf="@+id/texto_codigo_af_firmapp" />
+
+        <ImageView
+            android:id="@+id/imagenUsuario"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            app:layout_constraintBottom_toBottomOf="@+id/nombreUsuario"
+            app:layout_constraintEnd_toEndOf="@+id/nombreUsuario"
+            app:layout_constraintTop_toBottomOf="@+id/texto_codigo_af_firmapp"
+            app:srcCompat="@drawable/usuario" />
+
+        <TextView
+            android:id="@+id/textoClave"
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="CONTRASEÑA:"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/nombreUsuario" />
+
+        <EditText
+            android:id="@+id/claveUsuario"
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:background="@color/colorAccent"
+            android:ems="10"
+            android:hint="123XXXX"
+            android:inputType="textPassword"
+            android:padding="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textoClave" />
+
+        <TextView
+            android:id="@+id/claveObligatorio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:enabled="true"
+            android:text="*"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="#D32F2F"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/claveUsuario"
+            app:layout_constraintEnd_toStartOf="@+id/claveUsuario"
+            app:layout_constraintTop_toBottomOf="@+id/textoClave" />
+
+        <ImageView
+            android:id="@+id/imagenClave"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            app:layout_constraintBottom_toBottomOf="@+id/claveUsuario"
+            app:layout_constraintEnd_toEndOf="@+id/claveUsuario"
+            app:layout_constraintTop_toBottomOf="@+id/textoClave"
+            app:srcCompat="@drawable/clave" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="SELECCIONE EL APLICATIVO:"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/claveUsuario" />
+
+        <TextView
+            android:id="@+id/appObligatorio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:enabled="true"
+            android:text="*"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="#D32F2F"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/listaAplicativos"
+            app:layout_constraintEnd_toStartOf="@+id/listaAplicativos"
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+        <Spinner
+            android:id="@+id/listaAplicativos"
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:spinnerMode="dropdown"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+        <Button
+            android:id="@+id/botonIngresar"
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:background="@color/colorGreen"
+            android:text="INGRESAR"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/listaAplicativos" />
+
+        <TextView
+            android:id="@+id/textoOnline"
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="TEXTO EN LINEA"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/botonIngresar" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
