@@ -104,7 +104,7 @@ public class Home_Parte_Diaria extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.Home_Parte_Diaria);
+        setContentView(R.layout.home_parte_diaria);
 
         obtenerSesion();
         mQueue = Volley.newRequestQueue(this);

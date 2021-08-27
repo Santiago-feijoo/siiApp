@@ -7,12 +7,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.util.Base64;
 
 public class Conectar extends AppCompatActivity {
 
     String contenedor = "BD_CCC", contenedorEx = "CPersonal";
-    String ip = "190.109.168.19"; //186.159.4.221
-    String api = "http://" + ip + ":8090/api/";
+    String ip = "190.109.168.19";
+    String api = "http://" +ip+ ":8090/api/";
     String webServices = "http://" + ip + ":81/";
 
     public Connection conexionSql() {
