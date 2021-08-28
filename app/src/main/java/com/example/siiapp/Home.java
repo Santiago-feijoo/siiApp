@@ -163,7 +163,8 @@ public class Home extends AppCompatActivity {
                         sesion.setNomApp(colaborador.getString("Ruta_Aplicativo"));
                         sesion.setId(colaborador.getString("Id_usuario"));
                         sesion.setCodigo(colaborador.getString("FuncR"));
-                        sesion.setNombreUsuario(colaborador.getString("Nom_usuario"));
+                        sesion.setNombreUsuario(colaborador.getString("Nom_usuario").trim());
+                        sesion.setCargo(colaborador.getString("Cargo_colaborador"));
                         sesion.setRol(colaborador.getString("Rol"));
                         sesion.setClave(colaborador.getString("Cclave"));
 
@@ -205,6 +206,7 @@ public class Home extends AppCompatActivity {
         sesion.setNomApp(memoria.getString(sesion.getNOM_APP(), null));
         sesion.setCodigo(memoria.getString(sesion.getCF(), null));
         sesion.setNombreUsuario(memoria.getString(sesion.getNOM_USER(), null));
+        sesion.setCargo(memoria.getString(sesion.getCARGO_USER(), null));
         sesion.setRol(memoria.getString(sesion.getROL(), null));
 
         if (sesion.getId() == null || sesion.getNomApp() == null || sesion.getApp() == null || sesion.getCodigo() == null) {
@@ -225,6 +227,7 @@ public class Home extends AppCompatActivity {
         establecer.putString(sesion.getNOM_APP(), sesion.getNomApp());
         establecer.putString(sesion.getCF(), sesion.getCodigo());
         establecer.putString(sesion.getNOM_USER(), sesion.getNombreUsuario());
+        establecer.putString(sesion.getCARGO_USER(), sesion.getCargo());
         establecer.putString(sesion.getROL(), sesion.getRol());
 
         establecer.commit();

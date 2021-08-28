@@ -3,9 +3,12 @@ package com.example.siiapp;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.util.Base64;
 import android.view.Display;
 import android.view.View;
 import android.view.ViewStub;
@@ -46,6 +49,11 @@ public class Menu extends AppCompatActivity {
 
     /// ATRIBUTOS ///
 
+    private TextView nombreUser;
+    private TextView cargoUser;
+
+    private ImageView imgUser;
+
     private LinearLayout ventanaE;
 
     private ViewStub vistaApps;
@@ -61,6 +69,7 @@ public class Menu extends AppCompatActivity {
     private RequestQueue mQueue;
 
     String urlModulos = sql.api + "modulosAPP/";
+    String urlImgColaborador = sql.api + "imgColaboradores/";
     String link;
 
     /// METODOS ///
@@ -72,6 +81,15 @@ public class Menu extends AppCompatActivity {
 
         obtenerSesion();
         mQueue = Volley.newRequestQueue(this);
+
+        nombreUser = (TextView)findViewById(R.id.info_nombre_menu);
+        nombreUser.setText(sesion.getNombreUsuario());
+
+        cargoUser = (TextView)findViewById(R.id.info_cargo_menu);
+        cargoUser.setText(sesion.getCargo());
+
+        imgUser = (ImageView)findViewById(R.id.img_user_menu);
+        obtenerImg();
 
         ventanaE = (LinearLayout)findViewById(R.id.ventanaE);
 
@@ -101,6 +119,53 @@ public class Menu extends AppCompatActivity {
 
         carga.iniciarCarga();
         consultarModulos();
+
+    }
+
+    public void obtenerImg() {
+        HashMap<String,String> hashMapToken = new HashMap<>();
+        hashMapToken.put("id", sesion.getCodigo());
+
+        JsonObjectRequest peticion = new JsonObjectRequest(Request.Method.POST, urlImgColaborador, new JSONObject(hashMapToken), new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    String valor = response.getString("ok");
+                    carga.cargaCompleta();
+
+                    if (valor.equals("true")) {
+                        String resultado = response.getString("datos");
+
+                        byte[] decodedString = Base64.decode(resultado, Base64.DEFAULT);
+                        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+
+                        imgUser.setImageBitmap(decodedByte);
+
+                    } else {
+                        Toast.makeText(getApplicationContext(), "UPS!, NO SE PUDO CERRAR.", Toast.LENGTH_SHORT).show();
+
+                    }
+
+                } catch (JSONException e) {
+                    carga.cargaCompleta();
+                    Toast.makeText(getApplicationContext(), "ERROR DE CONEXIÓN!" +e, Toast.LENGTH_LONG).show();
+                    cerrarVentana();
+
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse (VolleyError error){
+                carga.cargaCompleta();
+                Toast.makeText(getApplicationContext(), "ERROR DE CONEXIÓN: " +error, Toast.LENGTH_LONG).show();
+                cerrarVentana();
+
+            }
+
+        });
+
+        mQueue.add(peticion);
 
     }
 
@@ -202,6 +267,7 @@ public class Menu extends AppCompatActivity {
         sesion.setNomApp(memoria.getString(sesion.getNOM_APP(), null));
         sesion.setCodigo(memoria.getString(sesion.getCF(), null));
         sesion.setNombreUsuario(memoria.getString(sesion.getNOM_USER(), null));
+        sesion.setCargo(memoria.getString(sesion.getCARGO_USER(), null));
 
         if (sesion.getId() == null || sesion.getNomApp() == null || sesion.getApp() == null || sesion.getCodigo() == null) {
 
@@ -218,6 +284,7 @@ public class Menu extends AppCompatActivity {
         establecer.putString(sesion.getNOM_APP(), null);
         establecer.putString(sesion.getCF(), null);
         establecer.putString(sesion.getNOM_USER(), null);
+        establecer.putString(sesion.getCARGO_USER(), null);
 
         establecer.commit();
 

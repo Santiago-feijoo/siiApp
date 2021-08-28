@@ -177,7 +177,7 @@ public class Home_Parte_Diaria extends AppCompatActivity {
                         observacion = datos.getString("Observacion_boletin");
                         equipos.setEstado(datos.getString("Estado"));
 
-                        if(equipos.getPlaca().equals("null")) {
+                        if(equipos.getPlaca().equals("null") || equipos.getPlaca().isEmpty()) {
                             equipos.setPlaca("NO APLICA");
 
                         }
@@ -839,7 +839,7 @@ public class Home_Parte_Diaria extends AppCompatActivity {
         caja_descripcion_pd_uno.setText(equipos.getDescripcion());
         texto_num_pd_uno.setText("PARTE DIARIA #" +equipos.getCon());
 
-        if(!observacion.isEmpty() || !observacion.equals(" ")) {
+        if(!observacion.trim().isEmpty()) {
             vistaObservacionI.setVisibility(View.VISIBLE);
             caja_observacion_pd_uno.setText(observacion);
 

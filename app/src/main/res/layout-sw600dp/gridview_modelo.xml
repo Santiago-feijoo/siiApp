@@ -9,19 +9,19 @@
 
     <ImageView
         android:id="@+id/modelo_img_iconApp"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:layout_gravity="center"
         app:srcCompat="@android:drawable/ic_input_add" />
 
     <TextView
         android:id="@+id/modelo_texto_nombreApp"
-        android:layout_width="100dp"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
         android:text="NOMBRE DEL APP"
-        android:textSize="18sp"
+        android:textSize="20sp"
         android:textStyle="bold" />
 
 </LinearLayout>

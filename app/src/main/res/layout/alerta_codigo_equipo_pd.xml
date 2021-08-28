@@ -13,6 +13,7 @@
         android:layout_height="40dp"
         android:background="@color/colorAccent"
         android:hint="EJEMPLO: 1500XXXX"
+        android:inputType="number"
         android:padding="10dp"
         android:text=""
         app:layout_constraintBottom_toBottomOf="parent"

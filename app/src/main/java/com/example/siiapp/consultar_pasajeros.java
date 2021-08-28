@@ -9,12 +9,17 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
 import android.nfc.NfcAdapter;
 import android.nfc.Tag;
 import android.nfc.tech.NfcA;
 import android.os.Bundle;
+import android.provider.ContactsContract;
+import android.util.Base64;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -66,17 +71,22 @@ public class consultar_pasajeros extends AppCompatActivity {
 
     /// VARIABLES ///
 
-    private EditText codigoC, placaVehiculo, rutaViaje, caja_info_pasajero;
+    private EditText codigoC;
     private Button botonConsultar;
     private RequestQueue mQueue;
-    private TextView cantidadPasajeros, texto_cerrar_pasajeros, texto_nombreUser_pasajeros, texto_cerrarSesion_pasajeros;
-    private ImageView img_cerrar_pasajeros, img_user_pasajeros;
+    private TextView placaVehiculo, rutaViaje, cantidadPasajeros, texto_cerrar_pasajeros;
+    private TextView nombrePasajero, cargoPasajero, empresaPasajero;
+    private ImageView img_cerrar_pasajeros, img_colaborador, imgPasajero;
+
+    private View vistaImg;
+    LayoutInflater img_identidad;
 
     String urlObservacion = sql.api + "iocolaboradorAPP/";
     String urlPasajeros = sql.api + "registroPasajeroAPP/";
     String urlRegistroExistente = sql.api + "pasajeroRegistradoAPP/";
     String urlRegistroProceso = sql.api + "registrarProcesoAPP/";
     String urlActualizarViaje = sql.api + "actualizarVAPP/";
+    String urlImgColaborador = sql.api + "imgColaboradores/";
     String url = sql.api + "colaboradorAPP/";
     String codigoBuscar, origen, destino, no3;
     int cantidadP;
@@ -96,17 +106,18 @@ public class consultar_pasajeros extends AppCompatActivity {
         ejecutarNfc();
 
         codigoC = (EditText) findViewById(R.id.cajaCodigo);
-        placaVehiculo = (EditText) findViewById(R.id.cajaPlaca);
-        rutaViaje = (EditText) findViewById(R.id.cajaRuta);
-        caja_info_pasajero = (EditText)findViewById(R.id.caja_info_pasajeros);
-        texto_nombreUser_pasajeros = (TextView)findViewById(R.id.texto_nombreUser_pasajeros);
-        texto_cerrarSesion_pasajeros = (TextView)findViewById(R.id.texto_cerrarSesion_pasajeros);
+        placaVehiculo = (TextView) findViewById(R.id.cajaPlaca);
+        rutaViaje = (TextView) findViewById(R.id.cajaRuta);
+
+        img_colaborador = (ImageView)findViewById(R.id.img_colaborador_despacho);
+        nombrePasajero = (TextView)findViewById(R.id.caja_nombreP_despacho);
+        cargoPasajero = (TextView)findViewById(R.id.caja_cargo_despacho);
+        empresaPasajero = (TextView)findViewById(R.id.caja_empresa_despacho);
+
         cantidadPasajeros = (TextView) findViewById(R.id.texto_cantidad_pasajeros);
         texto_cerrar_pasajeros = (TextView)findViewById(R.id.texto_cerrar_pasajeros);
         img_cerrar_pasajeros = (ImageView)findViewById(R.id.img_cerrar_pasajeros);
-        img_user_pasajeros = (ImageView)findViewById(R.id.img_user_pasajeros);
 
-        texto_nombreUser_pasajeros.setText(sesion.getNombreUsuario());
         placaVehiculo.setText(transporte.getPlaca());
         rutaViaje.setText(sitios.getOrigen() + "-" + sitios.getDestino());
         cantidadPasajeros.setText(Integer.toString(transporte.getCantidadPasajeros()));
@@ -131,13 +142,6 @@ public class consultar_pasajeros extends AppCompatActivity {
             }
         });
 
-        texto_cerrarSesion_pasajeros.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                cerrarSesion();
-
-            }
-        });
 
         img_cerrar_pasajeros.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -242,6 +246,54 @@ public class consultar_pasajeros extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 carga.cargaCompleta();
                 Toast.makeText(getApplicationContext(), "ERROR DE CONEXIÓN: " + error, Toast.LENGTH_SHORT).show();
+
+            }
+
+        });
+
+        mQueue.add(peticion);
+
+    }
+
+    public void obtenerImg() {
+        HashMap<String,String> hashMapToken = new HashMap<>();
+        hashMapToken.put("id", persona.getCodigoC());
+
+        JsonObjectRequest peticion = new JsonObjectRequest(Request.Method.POST, urlImgColaborador, new JSONObject(hashMapToken), new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    String valor = response.getString("ok");
+                    carga.cargaCompleta();
+
+                    if (valor.equals("true")) {
+                        String resultado = response.getString("datos");
+
+                        byte[] decodedString = Base64.decode(resultado, Base64.DEFAULT);
+                        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+
+                        imgPasajero.setImageBitmap(decodedByte);
+                        img_colaborador.setImageBitmap(decodedByte);
+
+                    } else {
+                        Toast.makeText(getApplicationContext(), "UPS!, NO SE PUDO CERRAR.", Toast.LENGTH_SHORT).show();
+
+                    }
+
+                } catch (JSONException e) {
+                    carga.cargaCompleta();
+                    Toast.makeText(getApplicationContext(), "ERROR DE CONEXIÓN!" +e, Toast.LENGTH_LONG).show();
+                    cerrarVentana();
+
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse (VolleyError error){
+                carga.cargaCompleta();
+                Toast.makeText(getApplicationContext(), "ERROR DE CONEXIÓN: " +error, Toast.LENGTH_LONG).show();
+                cerrarVentana();
 
             }
 
@@ -440,6 +492,9 @@ public class consultar_pasajeros extends AppCompatActivity {
     public void mostrarDatos() {
         AlertDialog.Builder permitidos = new AlertDialog.Builder(this);
         permitidos.setTitle(persona.getNombreC());
+        vistaImg = getLayoutInflater().inflate(R.layout.img_identidad, null);
+        imgPasajero = (ImageView)vistaImg.findViewById(R.id.img_colaborador_identidad);
+        permitidos.setView(vistaImg);
         permitidos.setMessage("CODIGO: " +persona.getCodigoC() +"\n"+ persona.getObservacion());
         permitidos.setCancelable(false);
 
@@ -464,10 +519,13 @@ public class consultar_pasajeros extends AppCompatActivity {
 
         } else {
             permitidos.show();
+            obtenerImg();
 
         }
 
-        caja_info_pasajero.setText("EL COLABORADOR ES: " +persona.getNombreC()+ "\n\n" +"CARGO: " +persona.getCargoC()+ "\n" +"EMPRESA: " +persona.getEmpresa());
+        nombrePasajero.setText(persona.getNombreC());
+        cargoPasajero.setText(persona.getCargoC());
+        empresaPasajero.setText(persona.getEmpresa());
 
     }
 

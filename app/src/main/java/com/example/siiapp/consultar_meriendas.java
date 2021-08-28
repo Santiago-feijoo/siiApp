@@ -6,10 +6,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.nfc.NfcAdapter;
 import android.nfc.Tag;
 import android.nfc.tech.NfcA;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -78,11 +81,19 @@ public class consultar_meriendas extends AppCompatActivity {
     private View vistaObservacion;
     LayoutInflater alertaObservacion;
 
+    private View vistaImg;
+    LayoutInflater img_identidad;
+
+    private ImageView img_colaborador;
+
     String url = sql.api + "colaboradorAPP/";
     String urlMeriendas = sql.api + "consultarMeriendaAPP/";
     String urlEntregaM = sql.api + "registrarMeriendaAPP/";
     String urlValidarM = sql.api + "validarMeriendaAPP/";
-    String codigoBuscar, tipo, observacion, no3;
+    String urlImgColaborador = sql.api + "imgColaboradores/";
+    String codigoBuscar, tipo, observacion = "", no3;
+
+    int alertar = 0;
 
     /// METODOS ///
 
@@ -326,7 +337,7 @@ public class consultar_meriendas extends AppCompatActivity {
 
                     if (valor.equals("true")) {
                         Toast.makeText(getApplicationContext(), "REGISTRO CON EXITO!", Toast.LENGTH_SHORT).show();
-                        caja_observacion.setText("");
+                        alertar = 0;
                         caja_id_colaborador.setText("");
                         caja_id_colaborador.requestFocus();
 
@@ -361,10 +372,12 @@ public class consultar_meriendas extends AppCompatActivity {
 
         if(!persona.getTurno().equals("noche") && tipo.equals("MERIENDA") || persona.getJornada().equals("SOLO DIA") && tipo.equals("MERIENDA")) {
             mensaje = "COLABORADOR NO TIENE DERECHO A " +tipo+ ".";
+            alertar = 1;
 
 
         } else if (persona.getTurno().equals("disponible") || persona.getUbicacion().equals("FUERA DE OBRA")) {
             mensaje = "COLABORADOR NO TIENE DERECHO A " +tipo+ ".";
+            alertar = 1;
 
 
         } else {
@@ -388,17 +401,24 @@ public class consultar_meriendas extends AppCompatActivity {
         AlertDialog.Builder permitidos = new AlertDialog.Builder(this);
         permitidos.setTitle(persona.getNombreC());
         permitidos.setMessage("CODIGO: " +persona.getCodigoC() +"\n"+ "GRUPO: " +persona.getGrupo() +"\n"+ "TURNO: " +turno +"\n\n"+ mensaje);
-        vistaObservacion = getLayoutInflater().inflate(R.layout.alerta_observacion, null);
-        caja_observacion = (EditText)vistaObservacion.findViewById(R.id.caja_observacion_alerta);
-        permitidos.setView(vistaObservacion);
+        vistaImg = getLayoutInflater().inflate(R.layout.img_identidad, null);
+        img_colaborador = (ImageView)vistaImg.findViewById(R.id.img_colaborador_identidad);
+        permitidos.setView(vistaImg);
         permitidos.setCancelable(false);
 
         permitidos.setPositiveButton("ENTREGAR " +tipo, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                carga.iniciarCarga();
-                observacion = caja_observacion.getText().toString();
-                registrarMerienda();
+
+                if(alertar == 1) {
+                    observacion();
+
+                } else {
+                    carga.iniciarCarga();
+                    registrarMerienda();
+
+                }
+
 
             }
         });
@@ -413,6 +433,77 @@ public class consultar_meriendas extends AppCompatActivity {
         });
 
         permitidos.show();
+        obtenerImg();
+    }
+
+    public void observacion() {
+        AlertDialog.Builder alertaObservacion = new AlertDialog.Builder(this);
+        alertaObservacion.setTitle("¿Alguna observación?");
+        vistaObservacion = getLayoutInflater().inflate(R.layout.alerta_observacion, null);
+        caja_observacion = (EditText)vistaObservacion.findViewById(R.id.caja_observacion_alerta);
+        alertaObservacion.setView(vistaObservacion);
+        alertaObservacion.setCancelable(false);
+
+        alertaObservacion.setPositiveButton("CONTINUAR", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                carga.iniciarCarga();
+                observacion = caja_observacion.getText().toString();
+                caja_observacion.setText("");
+                registrarMerienda();
+
+            }
+        });
+
+        alertaObservacion.show();
+
+    }
+
+    public void obtenerImg() {
+        HashMap<String,String> hashMapToken = new HashMap<>();
+        hashMapToken.put("id", persona.getCodigoC());
+
+        JsonObjectRequest peticion = new JsonObjectRequest(Request.Method.POST, urlImgColaborador, new JSONObject(hashMapToken), new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    String valor = response.getString("ok");
+                    carga.cargaCompleta();
+
+                    if (valor.equals("true")) {
+                        String resultado = response.getString("datos");
+
+                        byte[] decodedString = Base64.decode(resultado, Base64.DEFAULT);
+                        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+
+                        img_colaborador.setImageBitmap(decodedByte);
+
+                    } else {
+                        Toast.makeText(getApplicationContext(), "UPS!, NO SE PUDO CERRAR.", Toast.LENGTH_SHORT).show();
+
+                    }
+
+                } catch (JSONException e) {
+                    carga.cargaCompleta();
+                    Toast.makeText(getApplicationContext(), "ERROR DE CONEXIÓN!" +e, Toast.LENGTH_LONG).show();
+                    cerrarVentana();
+
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse (VolleyError error){
+                carga.cargaCompleta();
+                Toast.makeText(getApplicationContext(), "ERROR DE CONEXIÓN: " +error, Toast.LENGTH_LONG).show();
+                cerrarVentana();
+
+            }
+
+        });
+
+        mQueue.add(peticion);
+
     }
 
     public void noEncontrado() {
