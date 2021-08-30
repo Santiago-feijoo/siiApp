@@ -62,7 +62,7 @@
         <activity android:name=".Home_Parte_Diaria" android:parentActivityName=".Menu" android:screenOrientation="portrait">
 
         </activity>
-        <activity android:name=".Parte_diaria_dos" android:parentActivityName=".Home_Parte_Diaria" android:screenOrientation="portrait">
+        <activity android:name=".Parte_diaria_km" android:parentActivityName=".Home_Parte_Diaria" android:screenOrientation="portrait">
 
         </activity>
         <activity android:name=".Home_af_firmapp" android:parentActivityName=".Menu" android:screenOrientation="portrait">

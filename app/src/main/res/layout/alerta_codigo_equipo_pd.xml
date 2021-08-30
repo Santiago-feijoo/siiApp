@@ -11,7 +11,7 @@
         android:id="@+id/caja_codigo_equipo_alerta"
         android:layout_width="0dp"
         android:layout_height="40dp"
-        android:background="@color/colorAccent"
+        android:background="@drawable/estilo_caja"
         android:hint="EJEMPLO: 1500XXXX"
         android:inputType="number"
         android:padding="10dp"

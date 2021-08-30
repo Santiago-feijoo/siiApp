@@ -92,7 +92,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
                 android:layout_weight="1"
-                android:background="@color/colorAccent"
+                android:background="@drawable/estilo_caja"
                 android:editable="false"
                 android:ems="10"
                 android:focusableInTouchMode="false"
@@ -105,7 +105,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@color/colorAccent"
+                android:background="@drawable/estilo_caja"
                 android:ems="10"
                 android:hint="EJEMPLO: 240562"
                 android:inputType="number"
@@ -154,7 +154,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
                 android:layout_weight="1"
-                android:background="@color/colorAccent"
+                android:background="@drawable/estilo_caja"
                 android:padding="10dp" />
 
             <Spinner
@@ -162,7 +162,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@color/colorAccent"
+                android:background="@drawable/estilo_caja"
                 android:padding="10dp" />
         </LinearLayout>
 
@@ -216,7 +216,7 @@
 
                 <TextView
                     android:id="@+id/texto_os_pd_dos"
-                    android:layout_width="0dp"
+                    android:layout_width="300dp"
                     android:layout_height="wrap_content"
                     android:text="ORDEN DE SERVICIO (OS):"
                     android:textStyle="bold"
@@ -226,9 +226,9 @@
 
                 <EditText
                     android:id="@+id/caja_os_pd_dos"
-                    android:layout_width="0dp"
+                    android:layout_width="300dp"
                     android:layout_height="wrap_content"
-                    android:background="@color/colorAccent"
+                    android:background="@drawable/estilo_caja"
                     android:ems="10"
                     android:hint="EJEMPLO: S02AMB"
                     android:inputType="textPersonName"
@@ -239,7 +239,7 @@
 
                 <TextView
                     android:id="@+id/texto_desc_pd_dos"
-                    android:layout_width="0dp"
+                    android:layout_width="300dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:text="DESCRIPCIÓN DE SERVICIOS:"
@@ -250,9 +250,9 @@
 
                 <EditText
                     android:id="@+id/caja_desc_pd_dos"
-                    android:layout_width="0dp"
+                    android:layout_width="300dp"
                     android:layout_height="100dp"
-                    android:background="@color/colorAccent"
+                    android:background="@drawable/estilo_caja"
                     android:ems="10"
                     android:gravity="start|top"
                     android:hint="EJEMPLO: MOVIMIENTOS EN OBRA"
@@ -264,23 +264,25 @@
 
                 <TextView
                     android:id="@+id/texto_interferencia_pd_dos"
-                    android:layout_width="match_parent"
+                    android:layout_width="300dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:layout_weight="1"
                     android:text="INTERFERENCIA:"
                     android:textStyle="bold"
-                    app:layout_constraintTop_toBottomOf="@+id/caja_desc_pd_dos"
-                    tools:layout_editor_absoluteX="10dp" />
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/caja_desc_pd_dos" />
 
                 <Spinner
                     android:id="@+id/caja_interferencia_pd_dos"
-                    android:layout_width="match_parent"
+                    android:layout_width="300dp"
                     android:layout_height="wrap_content"
-                    android:background="@color/colorAccent"
+                    android:background="@drawable/estilo_caja"
                     android:padding="10dp"
-                    app:layout_constraintTop_toBottomOf="@+id/texto_interferencia_pd_dos"
-                    tools:layout_editor_absoluteX="10dp" />
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/texto_interferencia_pd_dos" />
 
                 <ImageView
                     android:id="@+id/img_añadir_pd_dos"

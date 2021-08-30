@@ -14,5 +14,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:padding="10dp"
-        android:background="@color/colorAccent"/>
+        android:background="@drawable/estilo_caja"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,10 +1,14 @@
 package com.example.siiapp;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,12 +34,14 @@ public class colaboradores_datos extends AppCompatActivity {
     cargar_proceso carga = new cargar_proceso(this);
 
     /// VARIABLES ///
+    private ImageView img_colaborador;
     private EditText codigoC, cedulaC, nombreC, cargoC, suborC, empresaC;
     private Button botonConsultar;
     private RequestQueue mQueue;
 
     private String codigoBuscar;
     private String url = sql.api + "colaboradorAPP/";
+    private String urlImgColaborador = sql.api + "imgColaboradores/";
 
     /// METODOS ///
 
@@ -50,8 +56,7 @@ public class colaboradores_datos extends AppCompatActivity {
         sesion.setApp(getIntent().getStringExtra("idApp"));
         codigoBuscar = getIntent().getStringExtra("buscar");
 
-        carga.iniciarCarga();
-        consultarColaborador();
+        img_colaborador = (ImageView)findViewById(R.id.img_datos);
 
         codigoC = (EditText)findViewById(R.id.caja_codigo_datos);
         cedulaC = (EditText)findViewById(R.id.caja_cedula_datos);
@@ -60,6 +65,9 @@ public class colaboradores_datos extends AppCompatActivity {
         suborC = (EditText)findViewById(R.id.caja_subor_datos);
         empresaC = (EditText)findViewById(R.id.caja_empresa_datos);
         botonConsultar = (Button)findViewById(R.id.boton_consultar_datos);
+
+        carga.iniciarCarga();
+        consultarColaborador();
 
         botonConsultar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,7 +98,8 @@ public class colaboradores_datos extends AppCompatActivity {
                     persona.setEmpresa(datos.getString("Empresa"));
                     persona.setEstado(datos.getString("Estado"));
 
-                    llenarDatos();
+                    carga.iniciarCarga();
+                    obtenerImg();
 
                 } catch (JSONException e) {
                     carga.cargaCompleta();
@@ -104,6 +113,54 @@ public class colaboradores_datos extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 carga.cargaCompleta();
                 Toast.makeText(getApplicationContext(), "ERROR DE CONEXIÓN: " + error, Toast.LENGTH_LONG).show();
+                abrirConsulta();
+
+            }
+
+        });
+
+        mQueue.add(peticion);
+
+    }
+
+    public void obtenerImg() {
+        HashMap<String,String> hashMapToken = new HashMap<>();
+        hashMapToken.put("id", persona.getCodigoC());
+
+        JsonObjectRequest peticion = new JsonObjectRequest(Request.Method.POST, urlImgColaborador, new JSONObject(hashMapToken), new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    String valor = response.getString("ok");
+                    carga.cargaCompleta();
+
+                    if (valor.equals("true")) {
+                        String resultado = response.getString("datos");
+
+                        byte[] decodedString = Base64.decode(resultado, Base64.DEFAULT);
+                        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+
+                        img_colaborador.setImageBitmap(decodedByte);
+                        llenarDatos();
+
+                    } else {
+                        Toast.makeText(getApplicationContext(), "UPS!, NO SE PUDO CERRAR.", Toast.LENGTH_SHORT).show();
+
+                    }
+
+                } catch (JSONException e) {
+                    carga.cargaCompleta();
+                    Toast.makeText(getApplicationContext(), "ERROR DE CONEXIÓN!" +e, Toast.LENGTH_LONG).show();
+                    abrirConsulta();
+
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse (VolleyError error){
+                carga.cargaCompleta();
+                Toast.makeText(getApplicationContext(), "ERROR DE CONEXIÓN: " +error, Toast.LENGTH_LONG).show();
                 abrirConsulta();
 
             }

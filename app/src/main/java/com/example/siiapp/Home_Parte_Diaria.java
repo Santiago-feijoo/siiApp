@@ -172,6 +172,7 @@ public class Home_Parte_Diaria extends AppCompatActivity {
                         equipos.setCon(datos.getString("Consecutivo"));
                         equipos.setCodigo(datos.getString("Codigo_equipo"));
                         equipos.setPlaca(datos.getString("Placa"));
+                        equipos.setTipo(datos.getString("Tipo"));
                         equipos.setDescripcion(datos.getString("Descripcion_equipo"));
                         equipos.setKm_inicial(datos.getString("Primer_km"));
                         observacion = datos.getString("Observacion_boletin");
@@ -914,8 +915,14 @@ public class Home_Parte_Diaria extends AppCompatActivity {
     }
 
     public void abrirPd() {
-        Intent intento = new Intent(this, Parte_diaria_dos.class);
-        startActivity(intento);
+        if(equipos.getTipo().trim().equals("Kilometraje")) {
+            Intent intento = new Intent(this, Parte_diaria_km.class);
+            startActivity(intento);
+
+        } else {
+
+
+        }
 
     }
 

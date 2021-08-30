@@ -74,7 +74,7 @@
             android:id="@+id/caja_id_colaboradores"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:background="@color/colorAccent"
+            android:background="@drawable/estilo_caja"
             android:ems="10"
             android:hint="EJEMPLO: 193XXXX"
             android:inputType="number"
