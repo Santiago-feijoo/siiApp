@@ -1,6 +1,6 @@
 package com.example.siiapp;
 
-public class Colaborador {
+public class modelo_colaborador {
 
     private String codigoC, cedulaC, nombreC, estado, cargoC, turno, turnoBurbuja, grupo, jornada, ubicacion, subordinacion, Empresa, observacion, proceso;
 

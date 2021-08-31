@@ -1,11 +1,8 @@
 package com.example.siiapp;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.widget.TextView;
@@ -16,7 +13,7 @@ public class splash_sii extends AppCompatActivity {
 
     /// OBJETOS ///
 
-    Sesion sesion = new Sesion();
+    modelo_sesion sesion = new modelo_sesion();
 
     /// VARIABLES ///
 

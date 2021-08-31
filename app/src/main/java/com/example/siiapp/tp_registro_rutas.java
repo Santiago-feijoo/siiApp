@@ -27,14 +27,14 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class registrar_rutas extends AppCompatActivity {
+public class tp_registro_rutas extends AppCompatActivity {
 
     /// OBJETOS ///
 
-    Conectar sql = new Conectar();
-    Sesion sesion = new Sesion();
-    Vehiculos transporte = new Vehiculos();
-    Rutas sitios = new Rutas();
+    conexion sql = new conexion();
+    modelo_sesion sesion = new modelo_sesion();
+    modelo_vehiculos transporte = new modelo_vehiculos();
+    modelo_rutas sitios = new modelo_rutas();
 
     /// VARIABLES ///
 
@@ -168,7 +168,7 @@ public class registrar_rutas extends AppCompatActivity {
 
                     if (valor.equals("true")) {
                         Toast.makeText(getApplicationContext(), "REGISTRO EXITOSO!", Toast.LENGTH_LONG).show();
-                        sesion.setNomApp("consultar_pasajeros");
+                        sesion.setNomApp("tp_registro_pasajeros");
 
                         guardarSesion();
                         guardarRuta();
@@ -242,7 +242,7 @@ public class registrar_rutas extends AppCompatActivity {
     }
 
     public void abrirBus() {
-        Intent intento = new Intent(this, consultar_pasajeros.class);
+        Intent intento = new Intent(this, tp_registro_pasajeros.class);
         startActivity(intento);
 
     }

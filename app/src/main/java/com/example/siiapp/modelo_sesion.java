@@ -1,6 +1,6 @@
 package com.example.siiapp;
 
-public class Sesion {
+public class modelo_sesion {
 
     private String Id, codigo, nombreUsuario, cargo, rol, clave, nomApp, app;
     private final String ID_MEMORIA = "credenciales";

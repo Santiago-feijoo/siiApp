@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class adaptador_viajes_colaborador extends RecyclerView.Adapter<adaptador_viajes_colaborador.ViewHolder> {
+public class adaptador_tp_viajes_colaborador extends RecyclerView.Adapter<adaptador_tp_viajes_colaborador.ViewHolder> {
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private TextView permiso, placa, ruta, despacho, fecha;
@@ -34,7 +34,7 @@ public class adaptador_viajes_colaborador extends RecyclerView.Adapter<adaptador
     public List<modelo_viajes_colaborador> lista;
     public Context c;
 
-    public adaptador_viajes_colaborador(Context c, List<modelo_viajes_colaborador> lista) {
+    public adaptador_tp_viajes_colaborador(Context c, List<modelo_viajes_colaborador> lista) {
         this.c = c;
         this.lista = lista;
 

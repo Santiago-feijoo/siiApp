@@ -16,7 +16,6 @@ import android.nfc.NfcAdapter;
 import android.nfc.Tag;
 import android.nfc.tech.NfcA;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -39,10 +38,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.HashMap;
 
-public class consultar_pasajeros extends AppCompatActivity {
+public class tp_registro_pasajeros extends AppCompatActivity {
 
     /// NFC ///
 
@@ -62,12 +60,12 @@ public class consultar_pasajeros extends AppCompatActivity {
 
     /// OBJETOS ///
 
-    Vehiculos transporte = new Vehiculos();
-    Conectar sql = new Conectar();
-    Colaborador persona = new Colaborador();
-    Sesion sesion = new Sesion();
-    Rutas sitios = new Rutas();
-    cargar_proceso carga = new cargar_proceso(this);
+    modelo_vehiculos transporte = new modelo_vehiculos();
+    conexion sql = new conexion();
+    modelo_colaborador persona = new modelo_colaborador();
+    modelo_sesion sesion = new modelo_sesion();
+    modelo_rutas sitios = new modelo_rutas();
+    loading carga = new loading(this);
 
     /// VARIABLES ///
 
@@ -91,18 +89,16 @@ public class consultar_pasajeros extends AppCompatActivity {
     String codigoBuscar, origen, destino, no3;
     int cantidadP;
 
-    SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.tp_registro_pasajeros);
 
         mQueue = Volley.newRequestQueue(this);
         obtenerSesion();
         obtenerRuta();
 
-        nfcAdapter = NfcAdapter.getDefaultAdapter(consultar_pasajeros.this);
+        nfcAdapter = NfcAdapter.getDefaultAdapter(tp_registro_pasajeros.this);
         ejecutarNfc();
 
         codigoC = (EditText) findViewById(R.id.cajaCodigo);
@@ -851,7 +847,7 @@ public class consultar_pasajeros extends AppCompatActivity {
         super.onResume();
 
         if (nfcAdapter != null && nfcAdapter.isEnabled()) {
-            nfcAdapter.enableForegroundDispatch(consultar_pasajeros.this, pendingIntent,
+            nfcAdapter.enableForegroundDispatch(tp_registro_pasajeros.this, pendingIntent,
                     intentFiltersArray, techListsArray);
         } else {
             Toast.makeText(getApplicationContext(), "NFC INACTIVO", Toast.LENGTH_LONG).show();
@@ -872,7 +868,7 @@ public class consultar_pasajeros extends AppCompatActivity {
     }
 
     public void ejecutarNfc() {
-        pendingIntent = PendingIntent.getActivity(consultar_pasajeros.this, 0, new Intent(consultar_pasajeros.this,
+        pendingIntent = PendingIntent.getActivity(tp_registro_pasajeros.this, 0, new Intent(tp_registro_pasajeros.this,
                 getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
         IntentFilter ndef = new IntentFilter(NfcAdapter.ACTION_NDEF_DISCOVERED);
 

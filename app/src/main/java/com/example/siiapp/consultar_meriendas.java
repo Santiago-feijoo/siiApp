@@ -59,10 +59,10 @@ public class consultar_meriendas extends AppCompatActivity {
 
     /// OBJETOS ///
 
-    Conectar sql = new Conectar();
-    Sesion sesion = new Sesion();
-    Colaborador persona = new Colaborador();
-    cargar_proceso carga = new cargar_proceso(this);
+    conexion sql = new conexion();
+    modelo_sesion sesion = new modelo_sesion();
+    modelo_colaborador persona = new modelo_colaborador();
+    loading carga = new loading(this);
 
     /// ATRIBUTOS ///
 
@@ -100,7 +100,7 @@ public class consultar_meriendas extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.consultar_meriendas);
+        setContentView(R.layout.cas_consulta_meriendas);
 
         obtenerSesion();
         mQueue = Volley.newRequestQueue(this);

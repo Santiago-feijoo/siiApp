@@ -6,7 +6,6 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -29,13 +28,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class Parte_diaria_km extends AppCompatActivity {
+public class cp_parte_diaria_horometro extends AppCompatActivity {
 
     /// OBJETOS ///
 
-    Conectar sql = new Conectar();
-    Sesion sesion = new Sesion();
-    cargar_proceso carga = new cargar_proceso(this);
+    conexion sql = new conexion();
+    loading carga = new loading(this);
     modelo_equipos_pd equipos = new modelo_equipos_pd();
 
     modelo_descripciones_pd descripciones = new modelo_descripciones_pd();
@@ -51,12 +49,15 @@ public class Parte_diaria_km extends AppCompatActivity {
     private Spinner caja_turno;
 
     private String horas[];
+    private String minutos[];
     private Spinner caja_horas;
+    private Spinner caja_horas_os;
+    private Spinner caja_minutos_os;
 
     private EditText caja_os;
     private EditText caja_descripcion_os;
 
-    private ImageView añadirD;
+    private Button añadirD;
 
     private Button botonRegistrar;
 
@@ -66,7 +67,7 @@ public class Parte_diaria_km extends AppCompatActivity {
     private List<modelo_descripciones_pd> listaDescripciones = new ArrayList<>();
 
     private RecyclerView listaD;
-    private adaptador_descripciones adaptador;
+    private adaptador_pd_descripciones adaptador;
 
     String urlInterferencias = sql.api + "consultaInterferenciasPdAPP/";
     String urlCierrePd = sql.api + "updateCierrePdAPP/";
@@ -77,27 +78,29 @@ public class Parte_diaria_km extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.parte_diaria_km);
+        setContentView(R.layout.parte_diaria_horometro);
 
         mQueue = Volley.newRequestQueue(this);
 
-        caja_km_inicial = (EditText)findViewById(R.id.caja_km_inicial_pd_dos);
+        caja_km_inicial = (EditText)findViewById(R.id.caja_km_inicial_pd_horometro);
         caja_km_inicial.setText(equipos.getKm_inicial());
 
-        caja_km_final = (EditText)findViewById(R.id.caja_km_final_pd_dos);
+        caja_km_final = (EditText)findViewById(R.id.caja_km_final_pd_horometro);
 
-        caja_turno = (Spinner)findViewById(R.id.caja_turno_pd_dos);
-        caja_horas = (Spinner)findViewById(R.id.caja_jornada_pd_dos);
+        caja_turno = (Spinner)findViewById(R.id.caja_turno_pd_horometro);
+        caja_horas = (Spinner)findViewById(R.id.caja_jornada_pd_horometro);
+        caja_horas_os = (Spinner)findViewById(R.id.caja_horas_pd_horometro);
+        caja_minutos_os = (Spinner)findViewById(R.id.caja_minutos_pd_horometro);
 
         adaptarTurno();
         adaptarHoras();
 
-        caja_os = (EditText)findViewById(R.id.caja_os_pd_dos);
-        caja_descripcion_os = (EditText)findViewById(R.id.caja_desc_pd_dos);
+        caja_os = (EditText)findViewById(R.id.caja_os_pd_horometro);
+        caja_descripcion_os = (EditText)findViewById(R.id.caja_desc_pd_horometro);
 
-        caja_interferencia = (Spinner)findViewById(R.id.caja_interferencia_pd_dos);
+        caja_interferencia = (Spinner)findViewById(R.id.caja_interferencia_pd_horometro);
 
-        añadirD = (ImageView)findViewById(R.id.img_añadir_pd_dos);
+        añadirD = (Button) findViewById(R.id.boton_anadir_pd_horometro);
         añadirD.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -106,42 +109,65 @@ public class Parte_diaria_km extends AppCompatActivity {
             }
         });
 
-        listaD = (RecyclerView)findViewById(R.id.listaDescripciones);
+        listaD = (RecyclerView)findViewById(R.id.listaDescripciones_pd_horometro);
         listaD.setLayoutManager(new LinearLayoutManager(this));
+        adaptador = new adaptador_pd_descripciones(cp_parte_diaria_horometro.this, listaDescripciones);
+
+        adaptador.setOnItemClick(new adaptador_pd_descripciones.OnItemClick() {
+            @Override
+            public void itemClick(int position) {
+                listaDescripciones.remove(position);
+                adaptarDescripciones();
+
+            }
+        });
 
         carga.iniciarCarga();
         getInterferencias();
 
-        botonRegistrar = (Button)findViewById(R.id.boton_registrar_pd_dos);
+        botonRegistrar = (Button)findViewById(R.id.boton_registrar_pd_horometro);
         botonRegistrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(caja_km_final.getText().toString().isEmpty()) {
                     Toast.makeText(getApplicationContext(), "DEBE DIGITAR EL KILOMETRAJE FINAL", Toast.LENGTH_SHORT).show();
 
-                } else if (caja_turno.getSelectedItem().toString().equals("SELECCIONAR")) {
+                } else if (Integer.parseInt(equipos.getKm_inicial()) > Integer.parseInt(caja_km_final.getText().toString())) {
+                    Toast.makeText(getApplicationContext(), "EL KILOMETRAJE FINAL NO PUEDE SER MENOR QUE EL INICIAL", Toast.LENGTH_SHORT).show();
+
+                }else if (caja_turno.getSelectedItem().toString().equals("SELECCIONAR")) {
                     Toast.makeText(getApplicationContext(), "DEBE SELECCIONAR EL TURNO", Toast.LENGTH_SHORT).show();
 
                 } else if (caja_horas.getSelectedItem().toString().equals("SELECCIONAR")) {
-                    Toast.makeText(getApplicationContext(), "DEBE SELECCIONAR LA CANTIDAD DE HORAS", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "DEBE SELECCIONAR LA JORNADA", Toast.LENGTH_SHORT).show();
 
                 } else if (listaDescripciones.size() == 0) {
                     Toast.makeText(getApplicationContext(), "DEBE REGISTRAR ALMENOS UNA OS Y UNA DESCRIPCIÓN", Toast.LENGTH_SHORT).show();
 
                 } else {
                     equipos.setKm_final(caja_km_final.getText().toString());
+                    equipos.setTurno(caja_turno.getSelectedItem().toString());
+                    equipos.setJornada(caja_horas.getSelectedItem().toString());
 
-                   if (Integer.parseInt(equipos.getKm_inicial()) > Integer.parseInt(equipos.getKm_final())) {
-                       Toast.makeText(getApplicationContext(), "EL KILOMETRAJE FINAL NO PUEDE SER MENOR QUE EL INICIAL", Toast.LENGTH_SHORT).show();
+                    int cantidadHoras = 0, cantidadMinutos = 0;
 
-                   } else {
-                       botonRegistrar.setEnabled(false);
-                       equipos.setTurno(caja_turno.getSelectedItem().toString());
-                       equipos.setJornada(caja_horas.getSelectedItem().toString());
+                    for(int i = 0; i < listaDescripciones.size(); i++) {
+                        cantidadHoras += Integer.parseInt(listaDescripciones.get(i).getHorasLaboradas());
+                        cantidadMinutos += Integer.parseInt(listaDescripciones.get(i).getMinutosLaborados());
 
-                       cerrarPd();
+                    }
 
-                   }
+                    equipos.setHorasLaboradas(String.valueOf(cantidadHoras + cantidadMinutos / 60));
+
+                    if(equipos.getHorasLaboradas().equals(equipos.getJornada())) {
+                        botonRegistrar.setEnabled(false);
+                        cerrarPd();
+
+                    } else {
+                        Toast.makeText(getApplicationContext(), "LO SIENTO, USTED DEBE CUMPLIR CON "+equipos.getJornada()+" HORAS Y TIENE " +equipos.getHorasLaboradas().trim()+ " REGISTRADAS.", Toast.LENGTH_SHORT).show();
+
+                    }
+
 
                 }
 
@@ -157,16 +183,33 @@ public class Parte_diaria_km extends AppCompatActivity {
     }
 
     public void adaptarHoras() {
-        horas = new String[13];
+        horas = new String[14];
+        minutos = new String[horas.length - 1];
+        int anadirHoras = 0, anadirMinutos = 0;
+
         horas[0] = "SELECCIONAR";
+        minutos[0] = "SELECCIONAR";
 
         for(int i = 1; i < horas.length; i++) {
-            horas[i] = String.valueOf(i);
+            horas[i] = String.valueOf(anadirHoras);
+            anadirHoras += 1;
+
+        }
+
+        for(int i = 1; i < minutos.length; i++) {
+            minutos[i] = String.valueOf(anadirMinutos);
+            anadirMinutos += 5;
 
         }
 
         ArrayAdapter<String> adaptarHoras = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, horas);
         caja_horas.setAdapter(adaptarHoras);
+
+        ArrayAdapter<String> adaptarHorasOs = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, horas);
+        caja_horas_os.setAdapter(adaptarHorasOs);
+
+        ArrayAdapter<String> adaptarMinutosOs = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, minutos);
+        caja_minutos_os.setAdapter(adaptarMinutosOs);
 
     }
 
@@ -178,8 +221,17 @@ public class Parte_diaria_km extends AppCompatActivity {
             } else if(caja_descripcion_os.getText().toString().isEmpty()) {
                 Toast.makeText(getApplicationContext(), "POR FAVOR DIGITE LA DESCRIPCIÓN", Toast.LENGTH_SHORT).show();
 
+            } else if(caja_horas_os.getSelectedItem().toString().equals("SELECCIONAR")) {
+                Toast.makeText(getApplicationContext(), "DEBE SELECCIONAR LAS HORAS DE LA OS", Toast.LENGTH_SHORT).show();
+
+            } else if(caja_minutos_os.getSelectedItem().toString().equals("SELECCIONAR")) {
+                Toast.makeText(getApplicationContext(), "DEBE SELECCIONAR LOS MINUTOS DE LA OS", Toast.LENGTH_SHORT).show();
+
+            } else if (caja_horas_os.getSelectedItem().toString().equals("0") && caja_minutos_os.getSelectedItem().toString().equals("0")) {
+                Toast.makeText(getApplicationContext(), "HORA Y MINUTOS INCORRECTOS.", Toast.LENGTH_SHORT).show();
+
             } else {
-                listaDescripciones.add(new modelo_descripciones_pd(caja_os.getText().toString(), caja_descripcion_os.getText().toString(), "null"));
+                listaDescripciones.add(new modelo_descripciones_pd(caja_os.getText().toString(), caja_descripcion_os.getText().toString(), "null", caja_horas_os.getSelectedItem().toString(), caja_minutos_os.getSelectedItem().toString()));
                 adaptarDescripciones();
 
             }
@@ -193,8 +245,14 @@ public class Parte_diaria_km extends AppCompatActivity {
             } else if(caja_descripcion_os.getText().toString().isEmpty()) {
                 Toast.makeText(getApplicationContext(), "POR FAVOR DIGITE LA DESCRIPCIÓN", Toast.LENGTH_SHORT).show();
 
+            } else if(caja_horas_os.getSelectedItem().toString().equals("SELECCIONAR")) {
+                Toast.makeText(getApplicationContext(), "DEBE SELECCIONAR LAS HORAS DE LA OS", Toast.LENGTH_SHORT).show();
+
+            } else if(caja_minutos_os.getSelectedItem().toString().equals("SELECCIONAR")) {
+                Toast.makeText(getApplicationContext(), "DEBE SELECCIONAR LOS MINUTOS DE LA OS", Toast.LENGTH_SHORT).show();
+
             } else {
-                listaDescripciones.add(new modelo_descripciones_pd(caja_os.getText().toString(), caja_descripcion_os.getText().toString(), viTag[posicion]));
+                listaDescripciones.add(new modelo_descripciones_pd(caja_os.getText().toString(), caja_descripcion_os.getText().toString(), viTag[posicion], caja_horas_os.getSelectedItem().toString(), caja_minutos_os.getSelectedItem().toString()));
                 adaptarDescripciones();
 
             }
@@ -204,7 +262,7 @@ public class Parte_diaria_km extends AppCompatActivity {
     }
 
     public void adaptarDescripciones() {
-        adaptador = new adaptador_descripciones(Parte_diaria_km.this, listaDescripciones);
+        adaptador.notifyDataSetChanged();
         listaD.setAdapter(adaptador);
 
         limpiar();
@@ -215,6 +273,8 @@ public class Parte_diaria_km extends AppCompatActivity {
         caja_os.setText("");
         caja_descripcion_os.setText("");
         caja_interferencia.setSelection(0);
+        caja_horas_os.setSelection(0);
+        caja_minutos_os.setSelection(0);
 
     }
 
@@ -271,7 +331,7 @@ public class Parte_diaria_km extends AppCompatActivity {
         carga.iniciarCarga();
 
         for(int i = 0; i < listaDescripciones.size(); i++) {
-            registrarDetalles(listaDescripciones.get(i).getId(), listaDescripciones.get(i).getDescripcion(), listaDescripciones.get(i).getInterferencia());
+            registrarDetalles(listaDescripciones.get(i).getId(), listaDescripciones.get(i).getDescripcion(), listaDescripciones.get(i).getInterferencia(), listaDescripciones.get(i).getHorasLaboradas(), listaDescripciones.get(i).getMinutosLaborados());
 
         }
 
@@ -279,12 +339,14 @@ public class Parte_diaria_km extends AppCompatActivity {
 
     }
 
-    public void registrarDetalles(String os, String descripcion, String interferencia) {
+    public void registrarDetalles(String os, String descripcion, String interferencia, String horas, String minutos) {
         HashMap<String,String> hashMapToken = new HashMap<>();
         hashMapToken.put("consecutivo", equipos.getCon());
         hashMapToken.put("os", os);
         hashMapToken.put("descripcion", descripcion);
         hashMapToken.put("interferencia", interferencia);
+        hashMapToken.put("horas", horas);
+        hashMapToken.put("minutos", minutos);
 
         JsonObjectRequest peticion = new JsonObjectRequest(Request.Method.POST, urlRegistroDetalles, new JSONObject(hashMapToken), new Response.Listener<JSONObject>() {
             @Override
@@ -365,7 +427,6 @@ public class Parte_diaria_km extends AppCompatActivity {
     }
 
     public void adaptarInterferencias() {
-        LinearLayoutManager manager = new LinearLayoutManager(this);
         ArrayAdapter<String> adaptarInt = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, iTag);
         caja_interferencia.setAdapter(adaptarInt);
 

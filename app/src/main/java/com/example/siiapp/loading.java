@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.view.LayoutInflater;
 
-public class cargar_proceso {
+public class loading {
 
     /// VARIABLES ///
 
@@ -13,7 +13,7 @@ public class cargar_proceso {
 
     /// METODOS ///
 
-    cargar_proceso(Activity miActividad) {
+    loading(Activity miActividad) {
         this.miActividad = miActividad;
 
     }

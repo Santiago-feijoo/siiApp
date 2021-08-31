@@ -28,44 +28,33 @@
 
                 <TextView
                     android:id="@+id/texto_os_descripciones"
-                    android:layout_width="80dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginEnd="5dp"
-                    android:layout_marginRight="5dp"
-                    android:layout_marginBottom="5dp"
-                    android:layout_weight="1"
-                    android:gravity="start"
                     android:text="OS:"
                     android:textColor="@color/colorVerdePastel"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
-                <LinearLayout
+                <TextView
+                    android:id="@+id/modelo_os_descripciones"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginEnd="5dp"
-                    android:layout_marginRight="5dp"
-                    android:layout_marginBottom="5dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp"
                     android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:text="AQUI VA LA OS"
+                    android:textSize="18sp"
+                    android:textStyle="normal" />
 
-                    <TextView
-                        android:id="@+id/modelo_os_descripciones"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="NÚMERO OS"
-                        android:textSize="18sp"
-                        android:textStyle="normal" />
+                <ImageView
+                    android:id="@+id/img_delete_descripciones_pd"
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@android:drawable/ic_delete" />
 
-                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
@@ -73,29 +62,16 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
 
-                <LinearLayout
+                <TextView
+                    android:id="@+id/texto_descripcion_descripciones"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="DESCRIPCIÓN:"
+                    android:textColor="@color/colorVerdePastel"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
-                    <TextView
-                        android:id="@+id/texto_descripcion_descripciones"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginEnd="5dp"
-                        android:layout_marginRight="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:layout_weight="1"
-                        android:gravity="start"
-                        android:text="DESCRIPCIÓN:"
-                        android:textColor="@color/colorVerdePastel"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
-
-                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
@@ -107,8 +83,7 @@
                     android:id="@+id/modelo_descripcion_descripciones"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:text="DESCRIPCION"
+                    android:text="AQUI VA LA DESCRIPCIÓN"
                     android:textSize="18sp"
                     android:textStyle="normal" />
             </LinearLayout>
@@ -118,51 +93,51 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
 
-                <LinearLayout
+                <TextView
+                    android:id="@+id/texto_interferencia_descripciones"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="INTERFERENCIA:"
+                    android:textColor="@color/colorVerdePastel"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/modelo_interferencia_descripciones"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:text="AQUI VA LA INTERFERENCIA"
+                    android:textSize="18sp"
+                    android:textStyle="normal" />
 
-                    <TextView
-                        android:id="@+id/texto_interferencia_descripciones"
-                        android:layout_width="300dp"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginEnd="5dp"
-                        android:layout_marginRight="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:layout_weight="1"
-                        android:gravity="start"
-                        android:text="INTERFERENCIA:"
-                        android:textColor="@color/colorVerdePastel"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
+            </LinearLayout>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginEnd="5dp"
-                        android:layout_marginRight="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
 
-                        <TextView
-                            android:id="@+id/modelo_interferencia_descripciones"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="INTERFERENCIA"
-                            android:textSize="18sp"
-                            android:textStyle="normal" />
+                <TextView
+                    android:id="@+id/texto_horas_descripciones"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TIEMPO LABORADO:"
+                    android:textColor="@color/colorVerdePastel"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
-                    </LinearLayout>
-                </LinearLayout>
+                <TextView
+                    android:id="@+id/modelo_horas_descripciones"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:text="AQUI VA EL TIEMPO"
+                    android:textSize="18sp" />
             </LinearLayout>
 
         </LinearLayout>

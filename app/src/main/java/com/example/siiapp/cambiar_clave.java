@@ -19,13 +19,12 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONObject;
 
-import java.sql.Statement;
 import java.util.HashMap;
 
 public class cambiar_clave extends AppCompatActivity {
 
     /// OBJETOS ///
-    Conectar sql = new Conectar();
+    conexion sql = new conexion();
 
     /// ATRIBUTOS ///
     EditText cajaClaveNueva, cajaConfirmacion;

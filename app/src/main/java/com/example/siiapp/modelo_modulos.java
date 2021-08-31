@@ -1,6 +1,6 @@
 package com.example.siiapp;
 
-public class Modelo_modulos {
+public class modelo_modulos {
 
     /// ATRIBUTOS ///
 
@@ -9,11 +9,11 @@ public class Modelo_modulos {
 
     /// METODOS ///
 
-    public Modelo_modulos() {
+    public modelo_modulos() {
 
     }
 
-    public Modelo_modulos(String nombreApp, int img_app, String ruta) {
+    public modelo_modulos(String nombreApp, int img_app, String ruta) {
         this.nombreApp = nombreApp;
         this.img_app = img_app;
         this.ruta = ruta;

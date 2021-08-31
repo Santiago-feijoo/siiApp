@@ -1,28 +1,21 @@
 package com.example.siiapp;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.util.Base64;
-import android.view.Display;
 import android.view.View;
 import android.view.ViewStub;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -43,9 +36,9 @@ public class Menu extends AppCompatActivity {
 
     /// OBJETOS ///
 
-    Conectar sql = new Conectar();
-    Sesion sesion = new Sesion();
-    cargar_proceso carga = new cargar_proceso(this);
+    conexion sql = new conexion();
+    modelo_sesion sesion = new modelo_sesion();
+    loading carga = new loading(this);
 
     /// ATRIBUTOS ///
 
@@ -59,8 +52,8 @@ public class Menu extends AppCompatActivity {
     private ViewStub vistaApps;
     private GridView tablero;
 
-    private AdaptadorApps adaptador;
-    private List<Modelo_modulos> listaModelos;
+    private adaptador_apps adaptador;
+    private List<modelo_modulos> listaModelos;
 
     private TextView texto_cerrarSesion;
     private ImageView img_cerrarSesion;
@@ -191,7 +184,7 @@ public class Menu extends AppCompatActivity {
 
                             String nombreImg = datos.getString("Icono");
                             int img = getResources().getIdentifier(nombreImg, "drawable", getPackageName());
-                            listaModelos.add(new Modelo_modulos(datos.getString("Subgrupo"), img, datos.getString("Ruta")));
+                            listaModelos.add(new modelo_modulos(datos.getString("Subgrupo"), img, datos.getString("Ruta")));
 
                         }
 
@@ -227,7 +220,7 @@ public class Menu extends AppCompatActivity {
     }
 
     public void setAdaptador() {
-        adaptador = new AdaptadorApps(this, R.layout.gridview_modelo, listaModelos);
+        adaptador = new adaptador_apps(this, R.layout.gridview_modelo, listaModelos);
         tablero.setAdapter(adaptador);
 
     }

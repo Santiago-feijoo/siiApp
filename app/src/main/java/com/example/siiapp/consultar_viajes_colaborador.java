@@ -31,15 +31,15 @@ public class consultar_viajes_colaborador extends AppCompatActivity {
 
     /// OBJETOS ///
 
-    Conectar sql = new Conectar();
-    Sesion sesion = new Sesion();
-    Colaborador persona = new Colaborador();
-    cargar_proceso carga = new cargar_proceso(this);
+    conexion sql = new conexion();
+    modelo_sesion sesion = new modelo_sesion();
+    modelo_colaborador persona = new modelo_colaborador();
+    loading carga = new loading(this);
 
     /// ATRIBUTOS ///
 
     private RecyclerView listaViajes;
-    private adaptador_viajes_colaborador adaptador;
+    private adaptador_tp_viajes_colaborador adaptador;
 
     List<modelo_viajes_colaborador> listaV = new ArrayList<>();
 
@@ -56,7 +56,7 @@ public class consultar_viajes_colaborador extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.consulta_colaboradores_viajes);
+        setContentView(R.layout.tp_consulta_colaboradores_viajes);
 
         persona.setCodigoC(getIntent().getStringExtra("buscar"));
 
@@ -136,7 +136,7 @@ public class consultar_viajes_colaborador extends AppCompatActivity {
     }
 
     public void adaptar() {
-        adaptador = new adaptador_viajes_colaborador(consultar_viajes_colaborador.this, listaV);
+        adaptador = new adaptador_tp_viajes_colaborador(consultar_viajes_colaborador.this, listaV);
         listaViajes.setAdapter(adaptador);
 
         cajaCodigo.setText(persona.getCodigoC());

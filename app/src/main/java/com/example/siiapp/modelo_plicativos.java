@@ -1,6 +1,6 @@
 package com.example.siiapp;
 
-public class Aplicativos {
+public class modelo_plicativos {
 
     /// ATRIBUTOS ///
 

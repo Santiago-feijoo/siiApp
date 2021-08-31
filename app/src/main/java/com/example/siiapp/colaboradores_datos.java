@@ -28,10 +28,10 @@ import java.util.HashMap;
 public class colaboradores_datos extends AppCompatActivity {
 
     /// OBJETOS ///
-    Conectar sql = new Conectar();
-    Sesion sesion = new Sesion();
-    Colaborador persona = new Colaborador();
-    cargar_proceso carga = new cargar_proceso(this);
+    conexion sql = new conexion();
+    modelo_sesion sesion = new modelo_sesion();
+    modelo_colaborador persona = new modelo_colaborador();
+    loading carga = new loading(this);
 
     /// VARIABLES ///
     private ImageView img_colaborador;

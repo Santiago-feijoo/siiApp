@@ -38,10 +38,10 @@
         <activity android:name=".consultar_vehiculo" android:parentActivityName=".Home" android:screenOrientation="portrait">
 
         </activity>
-        <activity android:name=".registrar_rutas" android:parentActivityName=".consultar_vehiculo" android:screenOrientation="portrait">
+        <activity android:name=".tp_registro_rutas" android:parentActivityName=".consultar_vehiculo" android:screenOrientation="portrait">
 
         </activity>
-        <activity android:name=".consultar_pasajeros" android:parentActivityName=".consultar_vehiculo" android:screenOrientation="portrait">
+        <activity android:name=".tp_registro_pasajeros" android:parentActivityName=".consultar_vehiculo" android:screenOrientation="portrait">
 
         </activity>
         <activity android:name=".Home_Datos" android:parentActivityName=".Home" android:screenOrientation="portrait">
@@ -62,7 +62,10 @@
         <activity android:name=".Home_Parte_Diaria" android:parentActivityName=".Menu" android:screenOrientation="portrait">
 
         </activity>
-        <activity android:name=".Parte_diaria_km" android:parentActivityName=".Home_Parte_Diaria" android:screenOrientation="portrait">
+        <activity android:name=".cp_parte_diaria_km" android:parentActivityName=".Home_Parte_Diaria" android:screenOrientation="portrait">
+
+        </activity>
+        <activity android:name=".cp_parte_diaria_horometro" android:parentActivityName=".Home_Parte_Diaria" android:screenOrientation="portrait">
 
         </activity>
         <activity android:name=".Home_af_firmapp" android:parentActivityName=".Menu" android:screenOrientation="portrait">

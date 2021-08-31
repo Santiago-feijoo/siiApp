@@ -1,6 +1,6 @@
 package com.example.siiapp;
 
-public class Vehiculos {
+public class modelo_vehiculos {
 
     private final String ID_RUTA = "RUTA_BUS";
     private final String PLACA_BUS = "placa";

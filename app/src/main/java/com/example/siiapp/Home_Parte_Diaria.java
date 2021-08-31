@@ -40,9 +40,9 @@ public class Home_Parte_Diaria extends AppCompatActivity {
 
     /// OBJETOS ///
 
-    Conectar sql = new Conectar();
-    Sesion sesion = new Sesion();
-    cargar_proceso carga = new cargar_proceso(this);
+    conexion sql = new conexion();
+    modelo_sesion sesion = new modelo_sesion();
+    loading carga = new loading(this);
 
     modelo_equipos_pd equipos = new modelo_equipos_pd();
 
@@ -83,7 +83,7 @@ public class Home_Parte_Diaria extends AppCompatActivity {
     List<modelo_preguntas> listaP = new ArrayList<>();
 
     private RecyclerView listadoQuiz;
-    private adaptador_preguntas adaptador;
+    private adaptador_pd_preguntas adaptador;
     private String tipos[] = {"SELECCIONAR", "KILOMETRAJE", "HOROMETRO"};
 
     String urlEquipos = sql.api + "consultarEquiposPdAPP/";
@@ -126,6 +126,7 @@ public class Home_Parte_Diaria extends AppCompatActivity {
 
         listadoQuiz = (RecyclerView)findViewById(R.id.listadoPyR);
         listadoQuiz.setLayoutManager(new LinearLayoutManager(this));
+        adaptador = new adaptador_pd_preguntas(Home_Parte_Diaria.this, listaP);
 
         caja_observacion_pd_uno = (TextView)findViewById(R.id.caja_observacion_pd_uno);
 
@@ -280,7 +281,7 @@ public class Home_Parte_Diaria extends AppCompatActivity {
                         equipos.setKm_inicial(datos.getString("Ultimo_km"));
                         equipos.setEstado("1");
 
-                        if(equipos.getPlaca().equals("null")) {
+                        if(equipos.getPlaca().equals("null") || equipos.getPlaca().trim().isEmpty()) {
                             equipos.setPlaca("NO APLICA");
 
                         }
@@ -820,10 +821,10 @@ public class Home_Parte_Diaria extends AppCompatActivity {
     }
 
     public void adaptar() {
-        adaptador = new adaptador_preguntas(Home_Parte_Diaria.this, listaP);
+        adaptador.notifyDataSetChanged();
         listadoQuiz.setAdapter(adaptador);
 
-        adaptador.setOnItemClick(new adaptador_preguntas.OnItemClick() {
+        adaptador.setOnItemClick(new adaptador_pd_preguntas.OnItemClick() {
             @Override
             public void itemClick(int position) {
                 setEditarRespuesta(position);
@@ -915,14 +916,18 @@ public class Home_Parte_Diaria extends AppCompatActivity {
     }
 
     public void abrirPd() {
+        Intent intento;
+
         if(equipos.getTipo().trim().equals("Kilometraje")) {
-            Intent intento = new Intent(this, Parte_diaria_km.class);
-            startActivity(intento);
+            intento = new Intent(this, cp_parte_diaria_km.class);
+
 
         } else {
-
+            intento = new Intent(this, cp_parte_diaria_horometro.class);
 
         }
+
+        startActivity(intento);
 
     }
 

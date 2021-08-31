@@ -1,21 +1,18 @@
 package com.example.siiapp;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class adaptador_preguntas extends RecyclerView.Adapter<adaptador_preguntas.ViewHolder> {
+public class adaptador_pd_preguntas extends RecyclerView.Adapter<adaptador_pd_preguntas.ViewHolder> {
 
     OnItemClick mAccion;
 
@@ -63,7 +60,7 @@ public class adaptador_preguntas extends RecyclerView.Adapter<adaptador_pregunta
     public List<modelo_preguntas> lista;
     public Context c;
 
-    public adaptador_preguntas(Context c, List<modelo_preguntas> lista) {
+    public adaptador_pd_preguntas(Context c, List<modelo_preguntas> lista) {
         this.c = c;
         this.lista = lista;
 

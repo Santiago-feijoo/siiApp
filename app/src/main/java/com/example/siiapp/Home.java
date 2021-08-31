@@ -1,12 +1,9 @@
 package com.example.siiapp;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -39,8 +36,8 @@ public class Home extends AppCompatActivity {
     /// OBJETOS ///
 
     Red conexion = new Red(this);
-    Conectar sql = new Conectar();
-    Sesion sesion = new Sesion();
+    com.example.siiapp.conexion sql = new conexion();
+    modelo_sesion sesion = new modelo_sesion();
 
 
     /// ATRIBUTOS ///

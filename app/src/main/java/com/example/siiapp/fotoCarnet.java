@@ -40,9 +40,9 @@ public class fotoCarnet extends AppCompatActivity {
 
     /// OBJETOS ///
 
-    Conectar sql = new Conectar();
-    Sesion sesion = new Sesion();
-    Colaborador persona = new Colaborador();
+    conexion sql = new conexion();
+    modelo_sesion sesion = new modelo_sesion();
+    modelo_colaborador persona = new modelo_colaborador();
 
     /// ATRIBUTOS ///
 
@@ -63,7 +63,7 @@ public class fotoCarnet extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.foto_carnet);
+        setContentView(R.layout.gp_foto_carnet);
 
         mQueue = Volley.newRequestQueue(this);
         obtenerSesion();

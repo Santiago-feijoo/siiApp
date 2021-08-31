@@ -9,7 +9,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.util.Base64;
 
-public class Conectar extends AppCompatActivity {
+public class conexion extends AppCompatActivity {
 
     String contenedor = "BD_CCC", contenedorEx = "CPersonal";
     String ip = "190.109.168.19";

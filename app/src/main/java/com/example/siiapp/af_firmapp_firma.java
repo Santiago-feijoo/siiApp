@@ -40,10 +40,10 @@ public class af_firmapp_firma extends AppCompatActivity {
 
     /// OBJETOS ///
 
-    Conectar sql = new Conectar();
-    Sesion sesion = new Sesion();
+    conexion sql = new conexion();
+    modelo_sesion sesion = new modelo_sesion();
 
-    cargar_proceso carga = new cargar_proceso(this);
+    loading carga = new loading(this);
 
     modelo_almacenes almacen = new modelo_almacenes();
     modelo_prestador_af_firmapp prestador = new modelo_prestador_af_firmapp();

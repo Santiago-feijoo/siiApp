@@ -1,6 +1,6 @@
 package com.example.siiapp;
 
-public class Rutas {
+public class modelo_rutas {
 
     private String origen, destino;
 

@@ -28,10 +28,10 @@ public class consultar_vehiculo extends AppCompatActivity {
 
     /// OBJETOS ///
 
-    Conectar sql = new Conectar();
-    Sesion sesion = new Sesion();
-    Vehiculos transporte = new Vehiculos();
-    Rutas sitios = new Rutas();
+    conexion sql = new conexion();
+    modelo_sesion sesion = new modelo_sesion();
+    modelo_vehiculos transporte = new modelo_vehiculos();
+    modelo_rutas sitios = new modelo_rutas();
 
     /// VARIABLES ///
 
@@ -155,7 +155,7 @@ public class consultar_vehiculo extends AppCompatActivity {
                         transporte.setCantidadPasajeros(Integer.parseInt(viaje.getString("Cantidad_Pasajeros")));
                         Toast.makeText(getApplicationContext(), "BUS EN DESPACHO!", Toast.LENGTH_SHORT).show();
 
-                        sesion.setNomApp("consultar_pasajeros");
+                        sesion.setNomApp("tp_registro_pasajeros");
                         sitios.setOrigen(viaje.getString("Origen"));
                         sitios.setDestino(viaje.getString("Destino"));
 
@@ -189,7 +189,7 @@ public class consultar_vehiculo extends AppCompatActivity {
     }
 
     public void registrarRuta() {
-        Intent intento = new Intent(this, registrar_rutas.class);
+        Intent intento = new Intent(this, tp_registro_rutas.class);
         intento.putExtra("placa", transporte.getPlaca());
         intento.putExtra("capacidadB", Integer.toString(transporte.getCapacidadBus()));
         intento.putExtra("cantidadP", Integer.toString(transporte.getCantidadPasajeros()));

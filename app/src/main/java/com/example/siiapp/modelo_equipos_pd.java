@@ -8,7 +8,7 @@ public class modelo_equipos_pd {
     private final String CONSECUTIVO = "consecutivo";
 
     private static String con;
-    private static String codigo, tipo, placa, descripcion, turno, jornada, km_inicial, km_final, estado;
+    private static String codigo, tipo, placa, descripcion, turno, jornada, horasLaboradas, km_inicial, km_final, estado;
 
     /// METODOS ///
 
@@ -80,6 +80,14 @@ public class modelo_equipos_pd {
 
     public static void setJornada(String jornada) {
         modelo_equipos_pd.jornada = jornada;
+    }
+
+    public static String getHorasLaboradas() {
+        return horasLaboradas;
+    }
+
+    public static void setHorasLaboradas(String horasLaboradas) {
+        modelo_equipos_pd.horasLaboradas = horasLaboradas;
     }
 
     public static String getKm_inicial() {

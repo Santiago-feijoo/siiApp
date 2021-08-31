@@ -7,7 +7,7 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:id="@+id/logo_ccc_pd_km"
+        android:id="@+id/logo_ccc_pd_horometro"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
@@ -23,10 +23,10 @@
         android:padding="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/logo_ccc_pd_km">
+        app:layout_constraintTop_toBottomOf="@+id/logo_ccc_pd_horometro">
 
         <TextView
-            android:id="@+id/texto_titulo_pd_km"
+            android:id="@+id/texto_titulo_pd_horometro"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="@drawable/estilo_titulo"
@@ -60,7 +60,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:id="@+id/texto_km_inicial_pd_km"
+                android:id="@+id/texto_km_inicial_pd_horometro"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
@@ -69,7 +69,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/texto_km_final_pd_km"
+                android:id="@+id/texto_km_final_pd_horometro"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -87,7 +87,7 @@
             app:layout_constraintTop_toBottomOf="@+id/linearLayout6">
 
             <EditText
-                android:id="@+id/caja_km_inicial_pd_km"
+                android:id="@+id/caja_km_inicial_pd_horometro"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
@@ -101,7 +101,7 @@
                 android:padding="10dp" />
 
             <EditText
-                android:id="@+id/caja_km_final_pd_km"
+                android:id="@+id/caja_km_final_pd_horometro"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -123,7 +123,7 @@
             app:layout_constraintTop_toBottomOf="@+id/linearLayout5">
 
             <TextView
-                android:id="@+id/texto_turno_pd_km"
+                android:id="@+id/texto_turno_pd_horometro"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
@@ -132,7 +132,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/texto_jornada_pd_km"
+                android:id="@+id/texto_jornada_pd_horometro"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -149,7 +149,7 @@
             app:layout_constraintTop_toBottomOf="@+id/linearLayout7">
 
             <Spinner
-                android:id="@+id/caja_turno_pd_km"
+                android:id="@+id/caja_turno_pd_horometro"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
@@ -158,7 +158,7 @@
                 android:padding="10dp" />
 
             <Spinner
-                android:id="@+id/caja_jornada_pd_km"
+                android:id="@+id/caja_jornada_pd_horometro"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -178,7 +178,7 @@
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout36">
 
         <TextView
-            android:id="@+id/texto_titulo2_pd_km"
+            android:id="@+id/texto_titulo2_pd_horometro"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="@drawable/estilo_titulo"
@@ -210,22 +210,22 @@
             android:orientation="vertical">
 
             <LinearLayout
+                android:id="@+id/linearLayout2"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/texto_os_pd_km"
+                    android:id="@+id/texto_os_pd_horometro"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="10dp"
                     android:layout_marginRight="10dp"
                     android:layout_weight="1"
                     android:text="ORDEN DE SERVICIO (OS):"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/texto_interferencia_pd_km"
+                    android:id="@+id/texto_interferencia_pd_horometro"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -240,10 +240,9 @@
                 android:orientation="horizontal">
 
                 <EditText
-                    android:id="@+id/caja_os_pd_km"
+                    android:id="@+id/caja_os_pd_horometro"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="10dp"
                     android:layout_marginRight="10dp"
                     android:layout_weight="1"
                     android:background="@drawable/estilo_caja"
@@ -253,7 +252,7 @@
                     android:padding="10dp" />
 
                 <Spinner
-                    android:id="@+id/caja_interferencia_pd_km"
+                    android:id="@+id/caja_interferencia_pd_horometro"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -267,16 +266,15 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/texto_desc_pd_km"
+                    android:id="@+id/texto_desc_pd_horometro"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:layout_weight="1"
                     android:text="DESCRIPCIÓN DE SERVICIOS:"
                     android:textStyle="bold" />
 
                 <EditText
-                    android:id="@+id/caja_desc_pd_km"
+                    android:id="@+id/caja_desc_pd_horometro"
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
                     android:background="@drawable/estilo_caja"
@@ -288,84 +286,74 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/vista_horas_pd_km"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:orientation="horizontal">
 
-                <LinearLayout
+                <TextView
+                    android:id="@+id/horas_os_pd_horometro"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:text="HORAS:"
+                    android:textStyle="bold" />
 
-                    <TextView
-                        android:id="@+id/horas_os_pd_km"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_weight="1"
-                        android:text="HORAS:"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/minutos_os_pd_km"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:layout_weight="1"
-                        android:text="MINUTOS:"
-                        android:textStyle="bold" />
-                </LinearLayout>
-
-                <LinearLayout
+                <TextView
+                    android:id="@+id/minutos_os_pd_horometro"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
-
-                    <Spinner
-                        android:id="@+id/caja_horas_pd_km"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/estilo_caja"
-                        android:padding="10dp" />
-
-                    <Spinner
-                        android:id="@+id/caja_minutos_pd_km"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@drawable/estilo_caja"
-                        android:padding="10dp" />
-                </LinearLayout>
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:text="MINUTOS:"
+                    android:textStyle="bold" />
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/constraintLayout42"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <Spinner
+                    android:id="@+id/caja_horas_pd_horometro"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/estilo_caja"
+                    android:padding="10dp"
+                    android:layout_weight="1" />
+
+                <Spinner
+                    android:id="@+id/caja_minutos_pd_horometro"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/estilo_caja"
+                    android:padding="10dp"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="right"
-                android:orientation="vertical"
-                android:padding="10dp">
+                android:orientation="vertical">
 
                 <Button
-                    android:id="@+id/boton_anadir_pd_km"
+                    android:id="@+id/boton_anadir_pd_horometro"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:background="@color/colorVerdePastel"
                     android:text="AÑADIR"
                     android:textColor="@color/white" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/listaDescripciones_pd_km"
+                    android:id="@+id/listaDescripciones_pd_horometro"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp" />
-
             </LinearLayout>
 
         </LinearLayout>
@@ -380,7 +368,7 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <Button
-            android:id="@+id/boton_registrar_pd_km"
+            android:id="@+id/boton_registrar_pd_horometro"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="@color/colorVerdePastel"

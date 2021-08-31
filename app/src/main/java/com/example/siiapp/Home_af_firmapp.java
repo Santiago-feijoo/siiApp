@@ -1,24 +1,16 @@
 package com.example.siiapp;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Base64;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -44,10 +36,10 @@ public class Home_af_firmapp extends AppCompatActivity {
 
     /// OBJETOS ///
 
-    Conectar sql = new Conectar();
-    Sesion sesion = new Sesion();
+    conexion sql = new conexion();
+    modelo_sesion sesion = new modelo_sesion();
 
-    cargar_proceso carga = new cargar_proceso(this);
+    loading carga = new loading(this);
     modelo_almacenes almacen = new modelo_almacenes();
 
     /// ATRIBUTOS ///

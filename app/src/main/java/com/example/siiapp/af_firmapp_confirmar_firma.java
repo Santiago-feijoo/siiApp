@@ -1,19 +1,16 @@
 package com.example.siiapp;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.Request;
@@ -22,7 +19,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -35,10 +31,10 @@ public class af_firmapp_confirmar_firma extends AppCompatActivity {
 
     /// OBJETOS ///
 
-    Conectar sql = new Conectar();
-    cargar_proceso carga = new cargar_proceso(this);
+    conexion sql = new conexion();
+    loading carga = new loading(this);
 
-    Sesion sesion = new Sesion();
+    modelo_sesion sesion = new modelo_sesion();
     modelo_prestador_af_firmapp prestador = new modelo_prestador_af_firmapp();
 
     /// ATRIBUTOS ///
